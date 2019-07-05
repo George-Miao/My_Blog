@@ -154,7 +154,7 @@ text {
 }
 
 #name {
-    font-size: 10;
+    <font-size: 10;
     font-weight: 100;
     line-height: 24px;
     margin-bottom: 0;
@@ -221,10 +221,10 @@ text {
     
 }
 .block {
-    width: 392px;
-    min-height: 110px;
-    margin-right: 15px;
     margin-bottom: 15px;
+    box-sizing: content-box;
+    width: 390px;
+    min-height: 110px;
     background: white;
     box-shadow: 0 1px 5px rgba(26,26,26,.1);
     transition: all 350ms cubic-bezier(0, 0, 0.38, 1.04) 0s;
@@ -282,9 +282,9 @@ text {
 
 .date-color-bar {
     position: absolute;
-    width: 2px;
+    width: 3px;
     height: 30px;
-    left: -1px;
+    left: -2px;
     top: 15px;
     background: linear-gradient(-135deg, #ff935c, #fb406c);
 }
@@ -304,11 +304,31 @@ text {
     width: 100%;
     padding-left: 95px;
     box-sizing: border-box;
+    align-items: center;
 }
 
 .block-description a{
     font-size: 10;
     color: #aaa;
+    margin-right: 5px;
+}
+
+.description-icon {
+    margin-right: 4px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+}
+
+.tag-icon {
+    height: 13px;
+}
+
+.comment-icon {
+    height: 15px;
 }
 
 .block-summury{
