@@ -17,7 +17,7 @@ def webhook():
     type = input()
     if type == "1":
         a = request.get_json()
-    else if  type = "0":
+    elif type = "0":
         a = request.args['challenge']
     print(a)
     return '1'
