@@ -16,4 +16,4 @@ def articles():
 def webhook():
     a = request.args
     print(a)
-    return Response(a.get('challenge'))
+    return a.get('challenge')
