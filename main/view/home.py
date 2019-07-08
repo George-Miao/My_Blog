@@ -14,6 +14,6 @@ def articles():
 
 @view.route("/webhook", methods=['GET', 'POST'])
 def webhook():
-    a = request.content
+    a = request.get_json()
     print(a)
     return '1'
