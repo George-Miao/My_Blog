@@ -12,7 +12,7 @@ def home_view():
 def articles():
     return "articles"
 
-@view.route("/webhook", methods=['GET'])
+@view.route("/webhook", methods=['GET', 'POST'])
 def webhook():
     a = request.args
     print(a)
