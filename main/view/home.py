@@ -19,5 +19,5 @@ def webhook():
         print("New challenge: " + challenge)
         return challenge
     json = request.get_json()
-    print(json)
+    print("New edit: " + json)
     return 0
