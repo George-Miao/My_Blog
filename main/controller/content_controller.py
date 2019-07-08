@@ -15,3 +15,5 @@ def get_content():
     }
     id = request.args['id']
     return ret_dict
+
+
