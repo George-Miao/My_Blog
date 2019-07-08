@@ -13,6 +13,5 @@ def get_content():
     commentNumber: 0,
     content: "<a>这一个测试</a><img alt = 'test pic' src = 'https://restver.me/assets/images/js-app-invoke/res.jpg'/>",
     }
-    number = request.args['number']
     id = request.args['id']
     return ret_dict
