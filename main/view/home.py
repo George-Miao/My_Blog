@@ -16,6 +16,7 @@ def articles():
 def webhook():
     challenge = request.args['challenge']
     if challenge != None:
+        print(challenge)
         return challenge
     else:
         json = request.get_json()
