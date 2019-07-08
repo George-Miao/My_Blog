@@ -1,10 +1,11 @@
 var test_content = {
     day: 4,
     month: "jul",
-    title: "测试",
+    title: "一个很长很长很长很长很长很长很长很长的测试标题",
     tag: ["测试", "中文"],
+    viewNumber: 10,
     commentNumber: 0,
-    content: "container, day, month, title, tag, comment-number, content",
+    content: "<a>这一个测试</a><img alt = 'test pic' src = 'https://restver.me/assets/images/js-app-invoke/res.jpg'/>",
 }
 
 $(function () {
@@ -12,23 +13,29 @@ $(function () {
     $(".block").remove()
 
     if (isMobile()) {
-        alert('你正在使用移动客户端，可能会有页面显示bug')
+        alert('你正在使用移动客户端，可能会有页面显示bug，推荐使用电脑端访问')
         $('#top').css('height', '960px')
         $('.top-cover').css({ 'top': '700px', 'bottom': 'auto' })
     }
 
     set_float_pos()
-    
+
     var $container = $('#mid-content').masonry({
         itemSelector: '.block',
         gutter: 15,
         stagger: 30,
-        animate: false
+        animate: false,
+        transitionDuration: 0,
     })
-    $container.masonry('layout')
-    add_block($container, $block, test_content)
-    add_block($container, $block, test_content)
-    add_block($container, $block, test_content)
+    var count_post = 10
+    var i = 0
+    var interval = setInterval(function () {
+        add_block($container, $block, test_content, i)
+        i++
+        if (i == count_post) {
+            clearInterval(interval)
+        } 
+    }, 100);
 })
 
 window.onload = function () {
@@ -48,20 +55,22 @@ window.addEventListener('scroll', function () {
     set_float_pos()
 })
 
-function add_block(container, outter_block, con) {
+function add_block(container, outter_block, con, id) {
     var block = outter_block.clone()
+    block.attr("id", "#" + id)
     block.children(".block-date").children(".day").text(con["day"])
     block.children(".block-date").children(".month").text(con["month"])
     block.children(".block-title").text(con["title"])
     var tags = block.children(".block-description").children(".tag")
-    for(var tag_index = 0; tag_index < con["tag"].length; tag_index++){
+    for (var tag_index = 0; tag_index < con["tag"].length; tag_index++) {
         $("<a>").text(con["tag"][tag_index]).appendTo(tags)
     }
+    block.children(".block-description").children(".view").text(con["viewNumber"])
     block.children(".block-description").children(".comment-number").text(con["commentNumber"])
-    block.children(".block-summury").text(con["content"])
-    container.append(block)
-    .masonry('appended', block);
-    container.masonry('layout');
+    block.children(".block-summury").html(con["content"])
+    $('.block-description').imagesLoaded(function () {
+        container.append(block).masonry('appended', block).masonry()
+    });
 }
 
 function isMobile() {
