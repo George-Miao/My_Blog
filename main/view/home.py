@@ -15,10 +15,9 @@ def articles():
 @view.route("/webhook", methods=['GET', 'POST'])
 def webhook():
     challenge = request.args['challenge']
-    if challenge != None:
-        print(challenge)
+    if challenge != "":
+        print("New challenge: " + challenge)
         return challenge
-    else:
-        json = request.get_json()
+    json = request.get_json()
     print(json)
     return 0
