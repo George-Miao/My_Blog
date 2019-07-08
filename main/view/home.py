@@ -12,7 +12,8 @@ def home_view():
 def articles():
     return "articles"
 
-#SSL verification
-@view.route("/.well-known/pki-validation/<path:filename>")
-def verification(filename):
-    return send_from_directory("static/file", filename, as_attachment=True)
+@view.route("/webhook", methods=['GET'])
+def webhook():
+    a = request.args
+    print(a)
+    return Response(a.get('challenge'))
