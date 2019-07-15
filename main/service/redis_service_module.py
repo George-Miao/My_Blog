@@ -45,7 +45,6 @@ class redis_service(object):
         }   
         try:
             ret_dict = self.r.hgetall(aid)
-            print(ret_dict)
             if ret_dict == None:
                 return error_dict
             ret_dict['aid'] = aid
