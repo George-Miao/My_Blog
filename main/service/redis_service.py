@@ -2,7 +2,7 @@ import redis
 import json
 
 
-class redis_service(object):
+class Redis_service(object):
     def __init__(self):
         self.host = "localhost"
         self.port = 6379
@@ -53,7 +53,6 @@ class redis_service(object):
         except Exception as e:
             print(f"Error: Redis get_article_by_id failed:\n{str(e)}")
             return error_dict
-
 
 class FilePathError(Exception):
     pass
