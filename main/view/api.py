@@ -8,7 +8,7 @@ from . import api_bp
 @api_bp.route("/zapier_post", methods=['POST'])
 def zapier():
     req = request
-    print(req.args)
+    print(req.get_json())
 
 @api_bp.route("/dropbox_post", methods=['GET', 'POST'])
 def webhook():
