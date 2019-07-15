@@ -8,8 +8,8 @@ import json
 
 @api_bp.route("/zapier_post", methods=['POST'])
 def zapier():
-    req = request
-    print(req.get_json())
+    req = request.get_json()
+    connect.add_new_article(req)
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 @api_bp.route("/dropbox_post", methods=['GET', 'POST'])
