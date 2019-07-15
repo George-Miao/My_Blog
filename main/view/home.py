@@ -1,4 +1,5 @@
 from . import view
+import hashlib
 from flask import render_template
 from flask import request
 from flask import send_from_directory
@@ -10,11 +11,12 @@ def home_view():
 
 @view.route("/articles")
 def articles():
-    return "articles"
+    return render_template("articles.html")
 
 @view.route("/webhook", methods=['GET', 'POST'])
 def webhook():
     print("New Edit")
+    
     req = request
     challenge = req.args['challenge']
     if challenge != "":

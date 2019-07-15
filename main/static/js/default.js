@@ -1,15 +1,5 @@
-var test_content = {
-    day: 4,
-    month: "jul",
-    title: "一个很长很长很长很长很长很长很长很长的测试标题",
-    tag: ["测试", "中文"],
-    viewNumber: 10,
-    commentNumber: 0,
-    content: "<a>这一个测试</a><img alt = 'test pic' src = 'https://restver.me/assets/images/js-app-invoke/res.jpg'/>",
-}
-
 $(function () {
-    var $block = $(".block").clone()
+    var sample_block = $(".block").clone()
     $(".block").remove()
 
     if (isMobile()) {
@@ -19,23 +9,27 @@ $(function () {
     }
 
     set_float_pos()
-
-    var $container = $('#mid-content').masonry({
+    
+    var mas_container = $('#mid-content').masonry({
         itemSelector: '.block',
         gutter: 15,
         stagger: 30,
         animate: false,
         transitionDuration: 0,
     })
-    var count_post = 10
-    var i = 0
-    var interval = setInterval(function () {
-        add_block($container, $block, test_content, i)
-        i++
-        if (i == count_post) {
-            clearInterval(interval)
-        } 
-    }, 100);
+
+    for(var aid = 1; aid < 10; aid ++){
+        $.ajax({
+            async: false,
+            url: "/api/content?id=" + aid,
+            success: function (result) {
+                add_block(mas_container, sample_block, result)
+            },
+            error: function (xhr) {
+                alert("错误提示： " + xhr.status + " " + xhr.statusText)
+            }
+        })
+    }
 })
 
 window.onload = function () {
@@ -55,19 +49,19 @@ window.addEventListener('scroll', function () {
     set_float_pos()
 })
 
-function add_block(container, outter_block, con, id) {
+function add_block(container, outter_block, content) {
     var block = outter_block.clone()
-    block.attr("id", "#" + id)
-    block.children(".block-date").children(".day").text(con["day"])
-    block.children(".block-date").children(".month").text(con["month"])
-    block.children(".block-title").text(con["title"])
+    block.attr("id", content['aid'])
+    block.children(".block-date").children(".day").text(content["day"])
+    block.children(".block-date").children(".month").text(content["month"])
+    block.children(".block-title").text(content["title"])
     var tags = block.children(".block-description").children(".tag")
-    for (var tag_index = 0; tag_index < con["tag"].length; tag_index++) {
-        $("<a>").text(con["tag"][tag_index]).appendTo(tags)
+    for (var tag_index = 0; tag_index < content["tag"].length; tag_index++) {
+        $("<a>").text(content["tag"][tag_index]).appendTo(tags)
     }
-    block.children(".block-description").children(".view").text(con["viewNumber"])
-    block.children(".block-description").children(".comment-number").text(con["commentNumber"])
-    block.children(".block-summury").html(con["content"])
+    block.children(".block-description").children(".view").text(content["viewNumber"])
+    block.children(".block-description").children(".comment-number").text(content["commentNumber"])
+    block.children(".block-summury").html(content["content"])
     $('.block-description').imagesLoaded(function () {
         container.append(block).masonry('appended', block).masonry()
     });
