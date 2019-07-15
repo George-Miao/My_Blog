@@ -84,10 +84,14 @@ class Redis_service(object):
                 'viewNumber': 0,
                 'commentNumber': 0,
                 'content': content,
+                'src': article['content']
             }
             self.r.hmset(aid, new_article)
         except Exception as e:
             print(str(e))
+
+    def get_count(self):
+        return self.r.get('count')
 
     def month2str(self, int):
         a = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',

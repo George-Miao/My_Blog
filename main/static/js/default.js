@@ -9,7 +9,7 @@ $(function () {
     }
 
     set_float_pos()
-    
+
     var mas_container = $('#mid-content').masonry({
         itemSelector: '.block',
         gutter: 15,
@@ -18,7 +18,21 @@ $(function () {
         transitionDuration: 0,
     })
 
-    for(var aid = 1; aid < 10; aid ++){
+    var article_number
+
+    $.ajax({
+        url: "/api/get_count",
+        async: false,
+        success: function (e) {
+            article_number = e
+            if (article_number > 10) { article_number = 10 }
+        },
+        error: function (xhr) {
+            alert("Get article number error： " + xhr.status + " " + xhr.statusText)
+        }
+    })
+
+    for (var aid = 1; aid <= article_number; aid++) {
         $.ajax({
             async: false,
             url: "/api/content?id=" + aid,
@@ -26,7 +40,7 @@ $(function () {
                 add_block(mas_container, sample_block, result)
             },
             error: function (xhr) {
-                alert("错误提示： " + xhr.status + " " + xhr.statusText)
+                alert("Get article error： " + xhr.status + " " + xhr.statusText)
             }
         })
     }

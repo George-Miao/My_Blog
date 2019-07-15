@@ -10,6 +10,7 @@ import json
 def zapier():
     req = request.get_json()
     connect.add_new_article(req)
+    print(f"New post:\n   {req}")
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 @api_bp.route("/dropbox_post", methods=['GET', 'POST'])
@@ -27,3 +28,7 @@ def webhook():
 def get_content():
     article_id = int(request.args['id'])
     return jsonify(connect.get_article_by_id(article_id))
+
+@api_bp.route("/get_count")
+def get_count():
+    return connect.get_count()
