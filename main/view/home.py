@@ -17,13 +17,9 @@ def articles():
 def webhook():
     print("New Edit")
     req = request
-    try:
-        challenge = req.args['challenge']
-    except Exception as e:
-        print(e)
-    if challenge != "":
-        print("New challenge: " + challenge)
-        return challenge
+    if "challenge" in req.args:
+        print("New challenge: " + req.args['challenge'])
+        return req.args['challenge']
     json = req.get_json()
     print(json)
-    return 0
+    return "0"
