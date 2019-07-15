@@ -16,9 +16,11 @@ def articles():
 @view.route("/webhook", methods=['GET', 'POST'])
 def webhook():
     print("New Edit")
-    
     req = request
-    challenge = req.args['challenge']
+    try:
+        challenge = req.args['challenge']
+    except Exception as e:
+        print(e)
     if challenge != "":
         print("New challenge: " + challenge)
         return challenge
