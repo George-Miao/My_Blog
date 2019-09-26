@@ -1,34 +1,23 @@
-from flask import Blueprint
-from flask import request
-from flask import jsonify
-from . import connect
+from flask import request, jsonify
 from . import api_bp
-import json
+from . import db
+import datetime
 
-
-@api_bp.route("/zapier_post", methods=['POST'])
-def zapier():
-    req = request.get_json()
-    connect.add_new_article(req)
-    print(f"New post:\n   {req}")
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-
-@api_bp.route("/dropbox_post", methods=['GET', 'POST'])
-def webhook():
-    print("New Edit")
-    req = request
-    if "challenge" in req.args:
-        print("New challenge: " + req.args['challenge'])
-        return req.args['challenge']
-    json = req.get_json()
-    print(json)
-    return "0"
 
 @api_bp.route("/content")
 def get_content():
-    article_id = int(request.args['id'])
-    return jsonify(connect.get_article_by_id(article_id))
+    path = request.args['path']
+    return db.request_file(path)
 
-@api_bp.route("/get_count")
+
+@api_bp.route("/list")
 def get_count():
-    return connect.get_count()
+    return jsonify(db.request_list())
+
+
+@api_bp.route("/db_wh")
+def db_wh():
+    if 'challenge' in request.args:
+        return request.args['challenge']
+    else:
+        print('[+] Nice')

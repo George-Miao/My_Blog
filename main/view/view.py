@@ -9,6 +9,7 @@ from flask import send_from_directory
 def home_view():
     return render_template("home.html")
 
+
 @view_bp.route("/articles")
 def articles():
     return render_template("articles.html")

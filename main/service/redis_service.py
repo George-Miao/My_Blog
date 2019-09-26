@@ -5,7 +5,7 @@ import requests
 import markdown
 
 
-class Redis_service(object):
+class RedisService(object):
     def __init__(self):
         self.host = "localhost"
         self.port = 6379

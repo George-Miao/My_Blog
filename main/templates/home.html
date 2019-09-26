@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://use.typekit.net/wnd0asw.css">
         <link rel="stylesheet" href="../static/css/default.css">
+        <link href="https://fonts.googleapis.com/css?family=Allura|Sacramento&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
         <script src="../static/js/default.js"></script>
         <title>Home</title>
     </head>
@@ -25,66 +25,29 @@
                     <a id="page-title">Glog</a>
                     <div id="nav-buttons">
                         <a class="button">HOME</a>
-                        <a class="button">ARCHIVE</a>
-                        <a class="button">CONTACT</a> </div>
-                </div>
-                <svg class="top-cover" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1903 556">
-                    <path class="svg-banner-shape" d="M0, 300 L1905,120 V 556 H 0 V 300z"></path>
-                </svg>
-            </div>
-            <div id="mid">
-                <div id="mid-content" class="container-fluid">
-                    <div class='block' id = "" style="display: none">
-                        <div class='block-date'>
-                            <a class='day'></a>
-                            <a class='month'></a>
-                            <div class='date-color-bar'></div>
-                        </div>
-                        <a class='block-title'></a>
-                        <div class='block-description'>
-                            <img src='../static/image/tag.svg' class='description-icon tag-icon' />
-                            <div class='tag'></div>
-                            <img class = 'description-icon view-icon' src = '../static/image/view.svg'/>
-                            <a class = 'view'></a>
-                            <img src='../static/image/comment.svg'
-                                class='description-icon comment-icon' />
-                            <a class='comment-number'></a>
-                        </div>
-                        <a class='block-summury'>
-                        </a>
+                        <a class="button">CONTACT</a>
                     </div>
                 </div>
-                <div id="float-window" class="info-window">
-                    <svg alt="Don't know what to put here yet" viewBox="0 0 120 120" id="avator-pic" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="Gradient1" x1=10% y1=90% x2=90% y2=10%>
-                                <stop offset="0%" stop-color="#fb406c" />
-                                <stop offset="100%" stop-color="#ff935c" />
-                            </linearGradient>
-                        </defs>
-                        <circle cx="60" cy="60" r="50" fill="url(#Gradient1)" />
-                        <circle cx="60" cy="60" r="48" id="cover-pic" fill="white" />
-                        <text x="60" y="63">Dont know what to put here yet</text>
-
-                    </svg>
-                    <a id="about-me">About ME</a>
-                    <p id="name"><strong>Name</strong><br>
-                        EN: George<br>
-                        <strong>Who Am I</strong><br>
-                        美高在读生<br>
-                        编程入门<br>
-                        喜欢打游戏<br>
-                        彩虹六号萌新<br>
-                        Steam 喜加一爱好者<br>
-                        摄影兴趣<br>
-                        偶尔（几乎不）做视频<br>
-                        什么都想做但是懒<br>
-                        <strong>Contact</strong><br>
-                        Email: <a href="mailto:Georgemiao@outlook.com">Georgemiao@outlook.com<br></a>
-                        Uplay: Pop_-<br>
-                        Steam: Magnificent.G<br>
-                        Twitter: @Ge0rgeMia0</p>
+            </div>
+            <div id="mid">
+                <div id="self">
+                    <a id = 'hi'>Hi</a>
+                    <a id = 'welcome'>I'm George<br>Welcome to my Blog</a>
+                    <!--id = 'img-cover'-->
+                </div>
+                <div id="mid-content">
+                    <div class='block' v-for="(block, index) in blocks" :id="'b'+index">
+                        <block-date
+                                :day = 'block.day'
+                                :month = 'block.month'
+                        ></block-date>
+                        <block-title
+                                :title = 'block.title'
+                        ></block-title>
+                        <a class='block-summary' v-html=block.content></a>
+                        <a class='redirect-button'>完整文章 🡢</a>
+                    </div>
+                    <div class="block" v-if="blocks.length % 2 != 0" style="opacity:0"></div>
                 </div>
             </div>
         </div>
