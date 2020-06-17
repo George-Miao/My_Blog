@@ -165,7 +165,7 @@ class FileService:
     def _is_md(pt):
         return pt.suffix.lower() == ".md"
 
-    def get(self, name: str, cat: str = None) -> GET_RESULT[FileMeta, Exception]:
+    def get(self, name: str, cat: str = None) -> GET_RESULT:
         try:
             if cat:
                 return Ok(CategorizedFile(self._fp / cat / name))

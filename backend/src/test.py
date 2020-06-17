@@ -25,15 +25,5 @@
 Fuck().a().b()"""
 
 
-class A:
-    def suicide(self):
-        del self.__class__
-        print("aaa")
+from file import *
 
-    def test(self):
-        print(self)
-
-
-a = A()
-a.suicide()
-a.test()
