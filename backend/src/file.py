@@ -68,17 +68,22 @@ class FileMeta:
     def __repr__(self):
         return "FileMeta<{}>".format(self.__name)
 
+
 class CategorizedFile(FileMeta):
     __slots__ = "__cat"
+
     def __init__(self, fp):
         super().__init__(fp)
         self.__cat = fp.parent.name
 
+
 class UnCategorizedFile(FileMeta):
     __slots__ = "__cat"
+
     def __init__(self, fp):
         super().__init__(fp)
         self.__cat = "uncategorized"
+
 
 class FileService:
     def __init__(self, fp: FILE_PATH = Path.home() / "Dropbox"):
@@ -91,11 +96,6 @@ class FileService:
         self._fp: Path = fp
         self._file_list = self._load_file_list()
         lg.info("FileService @ `{}`".format(self._fp.absolute()))
-
-    def _load_file_list(self):
-        ret = {}
-        for x in Path.glob("*.md"):
-
 
     @staticmethod
     def __format(fn: str):
@@ -165,10 +165,15 @@ class FileService:
     def _is_md(pt):
         return pt.suffix.lower() == ".md"
 
-    def get(self, name:str, cat: str = None) -> GET_RESULT:
+    def get(self, name: str, cat: str = None) -> GET_RESULT[FileMeta, Exception]:
         try:
             if cat:
-                return FileMeta("{}.md".format(name))
+                return Ok(CategorizedFile(self._fp / cat / name))
+            else:
+                return Ok(UnCategorizedFile(self._fp / name))
+        except Exception as e:
+            return Err(e)
+
 
 """"""
 
